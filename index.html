@@ -1,14 +1,81 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>LOLO</title>
-	</head>
-	<body>
-		<h1>Le Site des beaux gosses !!!</h1>
-		<img src="monstre.png" alt="monstre">
-		<h2>
-		<p>06 des admiratrices uniquement !</p>
-		</h2>
-	</body>
+
+<head>
+    <meta charset="utf-8">
+    <title>WEWEN</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="titre"> LE JEU DES BEAUX GOSSES !!!<br><br>
+        <div id="gagner"></div>
+        <div id="perdu"></div>
+        <div id="nulle"></div>
+        <br><br>
+    </div>
+    <audio src="floss.mp3" loop autoplay></audio>
+    <button>Pierre</button>
+    <button>Feuille</button>
+    <button>Ciseaux</button>
+    <div class=moi></div>
+    <div class=robot></div>
+
+    <img id="monstre" src="monstre.png" alt="monstre">
+    <img id="homer" src="homer.png" alt="homer">
+    <img id="monster" src="monster.jpeg" alt="monster">
+    <div class=resultat></div>
+
+</body>
+<script>
+    var nulle = 0;
+    var gagner = 0;
+    var perdu = 0;
+    const buttons = document.querySelectorAll("button");
+    document.querySelector('#monstre').style.display = "None";
+    document.querySelector('#homer').style.display = "None";
+    document.querySelector('#monster').style.display = "None";
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function() {
+            const joueur = buttons[i].innerHTML;
+            const robot = buttons[Math.floor(Math.random() * buttons.length)].innerHTML;
+            let resultat = "";
+
+            if (joueur === robot) {
+                resultat = "Egalité";
+                nulle += 1;
+                document.querySelector('#nulle').innerHTML = " Parties nulles : " + nulle;
+                document.querySelector('#nulle').style.color = "yellow";
+                document.querySelector('.resultat').style.color = "yellow";
+                document.querySelector('#monstre').style.display = "None";
+                document.querySelector('#monster').style.display = "inline-flex";
+                document.querySelector('#homer').style.display = "None";
+            } else if ((joueur === "Pierre" && robot === "Ciseaux") || (joueur === "Feuille" && robot === "Pierre") || (joueur === "Ciseaux" && robot === "Feuille")) {
+                resultat = "Gagné !!!";
+                gagner += 1;
+                document.querySelector('#gagner').innerHTML = "Parties gagnées : " + gagner;
+                document.querySelector('#gagner').style.color = "#03a9f4";
+                document.querySelector('.resultat').style.color = "blue";
+                document.querySelector('#homer').style.display = "inline-flex";
+                document.querySelector('#monstre').style.display = "None";
+                document.querySelector('#monster').style.display = "None";
+            } else {
+                resultat = "Perdu";
+                perdu += 1;
+                document.querySelector('#perdu').innerHTML = " Parties perdues : " + perdu;
+                document.querySelector('#perdu').style.color = "darkred";
+                document.querySelector('.resultat').style.color = "red";
+                document.querySelector('#monstre').style.display = "inline-flex";
+                document.querySelector('#homer').style.display = "None";
+                document.querySelector('#monster').style.display = "None";
+            }
+            document.querySelector('.resultat').innerHTML = resultat;
+            document.querySelector('.robot').innerHTML = "L'ordinateur a joué : " + robot;
+            document.querySelector('.moi').innerHTML = "Vous avez joué : " + joueur;
+
+        });
+    }
+
+</script>
+
 </html>
